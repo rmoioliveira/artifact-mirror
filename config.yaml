@@ -583,6 +583,7 @@ Artifacts:
   - v4.0.15
   - v4.0.5
   - v5.1.0
+  - v5.8.3
 - SourceArtifact: idealista/prom2teams
   Tags:
   - 3.2.1
@@ -2825,6 +2826,7 @@ Artifacts:
   - v0.80.1
   - v0.85.0
   - v0.87.1
+  - v0.89.0
 - SourceArtifact: quay.io/prometheus-operator/prometheus-config-reloader
   Tags:
   - v0.43.0
@@ -3385,6 +3387,7 @@ Artifacts:
   - 15.4.11.2
   - 15.6.19.1
   - 15.6.24.2
+  - 16.0-16.3
   TargetArtifactName: mirrored-bci-busybox
 - SourceArtifact: registry.suse.com/bci/bci-micro
   Tags:

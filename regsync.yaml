@@ -2843,6 +2843,9 @@ sync:
 - source: grafana/grafana-image-renderer:v5.1.0
   target: docker.io/rancher/mirrored-grafana-grafana-image-renderer:v5.1.0
   type: image
+- source: grafana/grafana-image-renderer:v5.8.3
+  target: docker.io/rancher/mirrored-grafana-grafana-image-renderer:v5.8.3
+  type: image
 - source: grafana/grafana-image-renderer:2.0.1
   target: registry.suse.com/rancher/mirrored-grafana-grafana-image-renderer:2.0.1
   type: image
@@ -2879,6 +2882,9 @@ sync:
 - source: grafana/grafana-image-renderer:v5.1.0
   target: registry.suse.com/rancher/mirrored-grafana-grafana-image-renderer:v5.1.0
   type: image
+- source: grafana/grafana-image-renderer:v5.8.3
+  target: registry.suse.com/rancher/mirrored-grafana-grafana-image-renderer:v5.8.3
+  type: image
 - source: grafana/grafana-image-renderer:2.0.1
   target: stgregistry.suse.com/rancher/mirrored-grafana-grafana-image-renderer:2.0.1
   type: image
@@ -2914,6 +2920,9 @@ sync:
   type: image
 - source: grafana/grafana-image-renderer:v5.1.0
   target: stgregistry.suse.com/rancher/mirrored-grafana-grafana-image-renderer:v5.1.0
+  type: image
+- source: grafana/grafana-image-renderer:v5.8.3
+  target: stgregistry.suse.com/rancher/mirrored-grafana-grafana-image-renderer:v5.8.3
   type: image
 - source: idealista/prom2teams:3.2.1
   target: docker.io/rancher/mirrored-idealista-prom2teams:3.2.1
@@ -19994,6 +20003,9 @@ sync:
 - source: quay.io/prometheus-operator/admission-webhook:v0.87.1
   target: docker.io/rancher/mirrored-prometheus-operator-admission-webhook:v0.87.1
   type: image
+- source: quay.io/prometheus-operator/admission-webhook:v0.89.0
+  target: docker.io/rancher/mirrored-prometheus-operator-admission-webhook:v0.89.0
+  type: image
 - source: quay.io/prometheus-operator/admission-webhook:v0.72.0
   target: registry.suse.com/rancher/mirrored-prometheus-operator-admission-webhook:v0.72.0
   type: image
@@ -20015,6 +20027,9 @@ sync:
 - source: quay.io/prometheus-operator/admission-webhook:v0.87.1
   target: registry.suse.com/rancher/mirrored-prometheus-operator-admission-webhook:v0.87.1
   type: image
+- source: quay.io/prometheus-operator/admission-webhook:v0.89.0
+  target: registry.suse.com/rancher/mirrored-prometheus-operator-admission-webhook:v0.89.0
+  type: image
 - source: quay.io/prometheus-operator/admission-webhook:v0.72.0
   target: stgregistry.suse.com/rancher/mirrored-prometheus-operator-admission-webhook:v0.72.0
   type: image
@@ -20035,6 +20050,9 @@ sync:
   type: image
 - source: quay.io/prometheus-operator/admission-webhook:v0.87.1
   target: stgregistry.suse.com/rancher/mirrored-prometheus-operator-admission-webhook:v0.87.1
+  type: image
+- source: quay.io/prometheus-operator/admission-webhook:v0.89.0
+  target: stgregistry.suse.com/rancher/mirrored-prometheus-operator-admission-webhook:v0.89.0
   type: image
 - source: quay.io/prometheus-operator/prometheus-config-reloader:v0.43.0
   target: docker.io/rancher/coreos-prometheus-config-reloader:v0.43.0
@@ -23375,6 +23393,9 @@ sync:
 - source: registry.suse.com/bci/bci-busybox:15.6.24.2
   target: docker.io/rancher/mirrored-bci-busybox:15.6.24.2
   type: image
+- source: registry.suse.com/bci/bci-busybox:16.0-16.3
+  target: docker.io/rancher/mirrored-bci-busybox:16.0-16.3
+  type: image
 - source: registry.suse.com/bci/bci-busybox:15.4.11.2
   target: registry.suse.com/rancher/mirrored-bci-busybox:15.4.11.2
   type: image
@@ -23384,6 +23405,9 @@ sync:
 - source: registry.suse.com/bci/bci-busybox:15.6.24.2
   target: registry.suse.com/rancher/mirrored-bci-busybox:15.6.24.2
   type: image
+- source: registry.suse.com/bci/bci-busybox:16.0-16.3
+  target: registry.suse.com/rancher/mirrored-bci-busybox:16.0-16.3
+  type: image
 - source: registry.suse.com/bci/bci-busybox:15.4.11.2
   target: stgregistry.suse.com/rancher/mirrored-bci-busybox:15.4.11.2
   type: image
@@ -23392,6 +23416,9 @@ sync:
   type: image
 - source: registry.suse.com/bci/bci-busybox:15.6.24.2
   target: stgregistry.suse.com/rancher/mirrored-bci-busybox:15.6.24.2
+  type: image
+- source: registry.suse.com/bci/bci-busybox:16.0-16.3
+  target: stgregistry.suse.com/rancher/mirrored-bci-busybox:16.0-16.3
   type: image
 - source: registry.suse.com/bci/bci-micro:15.4.14.3
   target: docker.io/rancher/mirrored-bci-micro:15.4.14.3

@@ -60,8 +60,13 @@ func (r *Registry) GetUpdateArtifacts() ([]*config.Artifact, error) {
 		var sortedTags []string
 		var sortingErr error
 
-		// TODO: Give more details
-		// For appco, we must use natural sorting
+		// In the Semver specification, dashes are used to define pre-release
+		// versions, which have lower precedence than the associated normal
+		// versions. This is not the meaning that dashes convey on the AppCo
+		// images, where dashes are used to denote revisions, which have a
+		// higher precedence order than the normal version. That's why we must
+		// use natural sorting for getting the last tag of the AppCo images. For
+		// more info, check https://semver.org/#spec-item-9.
 		if r.RegistryName == "dp.apps.rancher.io" {
 			sortedTags, sortingErr = sortstrategy.Natural(filteredTags)
 		} else {

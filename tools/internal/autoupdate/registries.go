@@ -18,7 +18,10 @@ type AppCoRegistry struct {
 }
 
 func (a AppCoRegistry) getArtifactTags() ([]string, error) {
-	token := os.Getenv("APPCO_TOKEN")
+	appcoUsername := os.Getenv("APPCO_USERNAME")
+	appcoPassword := os.Getenv("APPCO_PASSWORD")
+	token := base64.StdEncoding.EncodeToString(fmt.Appendf(nil, "%s:%s", appcoUsername, appcoPassword))
+
 	url := fmt.Sprintf("https://dp.apps.rancher.io/v2/%s/%s/tags/list", a.Namespace, a.Repository)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {

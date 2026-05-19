@@ -135,6 +135,22 @@ func (entry ConfigEntry) Validate() error {
 	return nil
 }
 
+// separateReviewers splits reviewers into individual users and team slugs.
+// Team reviewers in "org/team" format are converted to just the team slug.
+func separateReviewers(reviewers []string) (individualReviewers []string, teamReviewers []string) {
+	for _, reviewer := range reviewers {
+		if strings.Contains(reviewer, "/") {
+			// It's a team - extract just the team slug (part after "/")
+			parts := strings.Split(reviewer, "/")
+			teamReviewers = append(teamReviewers, parts[1])
+		} else {
+			// It's an individual user
+			individualReviewers = append(individualReviewers, reviewer)
+		}
+	}
+	return individualReviewers, teamReviewers
+}
+
 // GetUpdateArtifacts returns a slice of Artifacts that depends on the
 // configured update strategy. The returned Artifacts may be from
 // any source, and they may be gathered in any way. The intention
@@ -202,13 +218,15 @@ func (entry ConfigEntry) Run(ctx context.Context, opts AutoUpdateOptions) error 
 	if len(pullRequests) == 1 {
 		// open PRs that only have codeowners as reviewers
 		if pullRequests[0].GetState() == "open" && len(pullRequests[0].RequestedReviewers) <= 1 && len(entry.Reviewers) > 0 {
+			individualReviewers, teamReviewers := separateReviewers(entry.Reviewers)
 			_, _, err := opts.GithubClient.PullRequests.RequestReviewers(ctx, opts.GithubOwner, opts.GithubRepo, pullRequests[0].GetNumber(), github.ReviewersRequest{
-				NodeID:        pullRequests[0].NodeID,
-				TeamReviewers: entry.Reviewers,
+				Reviewers:     individualReviewers,
+				TeamReviewers: teamReviewers,
 			})
 			if err != nil {
 				fmt.Printf("warning: failed to add reviewers to PR %s: %s\n", pullRequests[0].GetHTMLURL(), err)
 			}
+			fmt.Printf("Added reviewers [%v] to PR %s\n", entry.Reviewers, pullRequests[0].GetHTMLURL())
 		}
 		fmt.Printf("%s: found existing PR with head branch %s: %s\n", entry.Name, headBranch, pullRequests[0].GetHTMLURL())
 		return nil
@@ -298,13 +316,15 @@ func (entry ConfigEntry) CreateArtifactUpdatePullRequest(ctx context.Context, op
 	}
 
 	fmt.Printf("%s: created pull request: %s\n", entry.Name, pullRequest.GetHTMLURL())
+	individualReviewers, teamReviewers := separateReviewers(entry.Reviewers)
 	_, _, err = opts.GithubClient.PullRequests.RequestReviewers(requestContext, opts.GithubOwner, opts.GithubRepo, pullRequest.GetNumber(), github.ReviewersRequest{
-		NodeID:        pullRequest.NodeID,
-		TeamReviewers: entry.Reviewers,
+		Reviewers:     individualReviewers,
+		TeamReviewers: teamReviewers,
 	})
 	if err != nil {
 		fmt.Printf("warning: failed to add reviewers to PR %s: %s\n", pullRequest.GetHTMLURL(), err)
 	}
+	fmt.Printf("Added reviewers [%v] to PR %s\n", entry.Reviewers, pullRequest.GetHTMLURL())
 	return nil
 }
 

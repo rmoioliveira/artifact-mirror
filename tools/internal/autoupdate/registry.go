@@ -7,18 +7,18 @@ import (
 	"math"
 	"net/http"
 	"regexp"
-	"sort"
 	"strings"
 	"time"
 
-	"github.com/Masterminds/semver/v3"
 	"github.com/rancher/artifact-mirror/internal/config"
+	"github.com/rancher/artifact-mirror/internal/sortstrategy"
 )
 
 type Registry struct {
 	Artifacts     []AutoupdateArtifactRef
 	Latest        bool   `json:",omitempty"`
 	VersionFilter string `json:",omitempty"`
+	RegistryName  string `json:",omitempty"`
 }
 
 var httpClient = &http.Client{Timeout: 10 * time.Second}
@@ -57,16 +57,27 @@ func (r *Registry) GetUpdateArtifacts() ([]*config.Artifact, error) {
 	}
 
 	if r.Latest {
-		vs := make([]*semver.Version, len(filteredTags))
-		for i, r := range filteredTags {
-			v, err := semver.NewVersion(r)
-			if err != nil {
-				return nil, fmt.Errorf("error parsing version: %s", err)
-			}
-			vs[i] = v
+		var sortedTags []string
+		var sortingErr error
+
+		// In the Semver specification, dashes are used to define pre-release
+		// versions, which have lower precedence than the associated normal
+		// versions. This is not the meaning that dashes convey on the AppCo
+		// images, where dashes are used to denote revisions, which have a
+		// higher precedence order than the normal version. That's why we must
+		// use natural sorting for getting the last tag of the AppCo images. For
+		// more info, check https://semver.org/#spec-item-9.
+		if r.RegistryName == "dp.apps.rancher.io" {
+			sortedTags, sortingErr = sortstrategy.Natural(filteredTags)
+		} else {
+			sortedTags, sortingErr = sortstrategy.Semver(filteredTags)
 		}
-		sort.Sort(semver.Collection(vs))
-		filteredTags = []string{vs[len(vs)-1].String()} // Use the latest version
+		if sortingErr != nil {
+			return nil, fmt.Errorf("failed to sort artifact tags: %w", sortingErr)
+		}
+
+		lastTag := []string{sortedTags[len(sortedTags)-1]}
+		filteredTags = lastTag
 	}
 
 	artifacts := make([]*config.Artifact, 0, len(r.Artifacts))
@@ -125,6 +136,9 @@ func (r *Registry) getRegistryInformationFromArtifact() (ArtifactRegistry, error
 		namespace = splittedArtifact[1]
 		repository = strings.Join(splittedArtifact[2:], "/")
 	}
+
+	r.RegistryName = registry
+
 	switch registry {
 	case "dockerhub":
 		return &DockerHub{
@@ -153,6 +167,11 @@ func (r *Registry) getRegistryInformationFromArtifact() (ArtifactRegistry, error
 		}, nil
 	case "gcr.io":
 		return &GoogleRegistry{
+			Namespace:  namespace,
+			Repository: repository,
+		}, nil
+	case "dp.apps.rancher.io":
+		return &AppCoRegistry{
 			Namespace:  namespace,
 			Repository: repository,
 		}, nil

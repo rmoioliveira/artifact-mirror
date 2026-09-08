@@ -14,14 +14,6 @@
     VersionFilter: ^13.0.1(.+)$
   Reviewers:
   - rancher/orbs
-- Name: appco-k3k-1.2
-  Registry:
-    Artifacts:
-    - SourceArtifact: dp.apps.rancher.io/containers/k3k
-    Latest: true
-    VersionFilter: ^1.2.(.+)$
-  Reviewers:
-  - rancher/virtual-clusters
 - Name: appco-k3k-1.1
   Registry:
     Artifacts:
@@ -30,10 +22,10 @@
     VersionFilter: ^1.1.(.+)$
   Reviewers:
   - rancher/virtual-clusters
-- Name: appco-k3k-kubelet-1.2
+- Name: appco-k3k-1.2
   Registry:
     Artifacts:
-    - SourceArtifact: dp.apps.rancher.io/containers/k3k-kubelet
+    - SourceArtifact: dp.apps.rancher.io/containers/k3k
     Latest: true
     VersionFilter: ^1.2.(.+)$
   Reviewers:
@@ -44,6 +36,14 @@
     - SourceArtifact: dp.apps.rancher.io/containers/k3k-kubelet
     Latest: true
     VersionFilter: ^1.1.(.+)$
+  Reviewers:
+  - rancher/virtual-clusters
+- Name: appco-k3k-kubelet-1.2
+  Registry:
+    Artifacts:
+    - SourceArtifact: dp.apps.rancher.io/containers/k3k-kubelet
+    Latest: true
+    VersionFilter: ^1.2.(.+)$
   Reviewers:
   - rancher/virtual-clusters
 - Name: appco-k8s-sidecar
@@ -70,22 +70,6 @@
     VersionFilter: ^2.18.0(.+)$
   Reviewers:
   - rancher/orbs
-- Name: appco-suse-virtual-cluster-engine
-  Registry:
-    Artifacts:
-    - SourceArtifact: dp.apps.rancher.io/charts/suse-virtual-cluster-engine
-    Latest: true
-    VersionFilter: ^1.2.(.+)$
-  Reviewers:
-  - rancher/virtual-clusters
-- Name: appco-suse-virtual-cluster-engine
-  Registry:
-    Artifacts:
-    - SourceArtifact: dp.apps.rancher.io/charts/suse-virtual-cluster-engine
-    Latest: true
-    VersionFilter: ^1.1.(.+)$
-  Reviewers:
-  - rancher/virtual-clusters
 - Name: appco-kubernetes-cluster-autoscaler-charts
   Registry:
     Artifacts:
@@ -110,6 +94,22 @@
     VersionFilter: ^1.9.1(.+)$
   Reviewers:
   - rancher/orbs
+- Name: appco-suse-virtual-cluster-engine-1.1
+  Registry:
+    Artifacts:
+    - SourceArtifact: dp.apps.rancher.io/charts/suse-virtual-cluster-engine
+    Latest: true
+    VersionFilter: ^1.1.(.+)$
+  Reviewers:
+  - rancher/virtual-clusters
+- Name: appco-suse-virtual-cluster-engine-1.2
+  Registry:
+    Artifacts:
+    - SourceArtifact: dp.apps.rancher.io/charts/suse-virtual-cluster-engine
+    Latest: true
+    VersionFilter: ^1.2.(.+)$
+  Reviewers:
+  - rancher/virtual-clusters
 - Name: appco-thanos
   Registry:
     Artifacts:

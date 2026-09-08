@@ -99,7 +99,7 @@
     Artifacts:
     - SourceArtifact: dp.apps.rancher.io/charts/suse-virtual-cluster-engine
     Latest: true
-    VersionFilter: ^1.1.(.+)$
+    VersionFilter: ^1\.1\.(\d)+$
   Reviewers:
   - rancher/virtual-clusters
 - Name: appco-suse-virtual-cluster-engine-1.2
@@ -107,7 +107,7 @@
     Artifacts:
     - SourceArtifact: dp.apps.rancher.io/charts/suse-virtual-cluster-engine
     Latest: true
-    VersionFilter: ^1.2.(.+)$
+    VersionFilter: ^1\.2\.(\d)+$
   Reviewers:
   - rancher/virtual-clusters
 - Name: appco-thanos
